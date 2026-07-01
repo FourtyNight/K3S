@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
+        image: gcr.io/google-containers/echoserver:1.10
         ports:
         - containerPort: 80
         resources:
