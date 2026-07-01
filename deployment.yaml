@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: nginx-app  # Укажите ваше пространство имен
+  namespace: testapp  # Укажите ваше пространство имен
   labels:
     app: nginx
 spec:
