@@ -2,8 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
+  namespace: nginx-app  # Укажите ваше пространство имен
+  labels:
+    app: nginx
 spec:
-  replicas: 1
+  # ВАЖНО: для работы с HPA строку replicas нужно закомментировать или удалить.
+  # Argo CD будет синхронизировать только те поля, что есть в Git.
+  # Если оставить replicas, Argo CD будет постоянно сбрасывать количество подов,
+  # установленное HPA, обратно к указанному здесь числу[reference:0][reference:1].
+  # replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -14,6 +21,13 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: gcr.io/google-containers/echoserver:1.10
+        image: nginx:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
